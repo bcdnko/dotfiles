@@ -4,6 +4,13 @@ set nocompatible
 " Vundle
 filetype off
 
+if exists('cfg_all')
+  let cfg_ext=1
+  let cfg_dev=1
+  let cfg_web=1
+  let cfg_web_syn=1
+endif
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
