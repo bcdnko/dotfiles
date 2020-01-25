@@ -1,4 +1,6 @@
 # VIM
+alias gvi='vi -g'
+
 alias vim='vi --cmd "let cfg_ext=1"'
 alias gvim='vi --cmd "let cfg_ext=1" -g'
 
