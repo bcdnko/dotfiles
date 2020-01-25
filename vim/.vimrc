@@ -100,11 +100,6 @@ set t_Co=256
 set background=dark
 colorscheme skythunder
 
-set guioptions-=r  "remove right-hand scroll bar
-set guioptions-=L  "remove left-hand scroll bar
-set guioptions-=m  "remove menu bar
-set guioptions-=T  "remove toolbar
-
 set laststatus=2
 set wrap linebreak
 set cursorline
@@ -121,10 +116,19 @@ set showbreak=↪\
 set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 set showcmd
 
+set guioptions-=r "remove right-hand scroll bar
+set guioptions-=R "remove right-hand scroll bar
+set guioptions-=l "remove left-hand scroll bar
+set guioptions-=L "remove left-hand scroll bar
+set guioptions-=b "remove bottom scroll bar
+set guioptions-=m "remove menu bar
+set guioptions-=T "remove toolbar
+set guioptions+=c "use console dialogs
+
 if has("gui_running")
   " GUI is running or is about to start.
   " Maximize gvim window.
-  set lines=999 columns=999
+  "set lines=999 columns=999
 endif
 nnoremap <leader> :nohl<cr><esc>
 
@@ -479,4 +483,3 @@ let g:NERDCommentEmptyLines = 1
 if has('python3')
     let g:gundo_prefer_python3 = 1
 endif
-
