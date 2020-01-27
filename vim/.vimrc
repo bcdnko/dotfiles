@@ -219,6 +219,10 @@ nnoremap <leader>Y "+Y
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 
+vnoremap <leader>y "+y
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+
 " Windows
 set splitbelow
 set splitright
@@ -251,6 +255,7 @@ set matchtime=1
 
 
 " UTILITIES
+nnoremap <leader>gc gg/constructor<cr>zz 
 nnoremap <leader>json :%!python -m json.tool<cr>
 
 " :Sw sudo write
