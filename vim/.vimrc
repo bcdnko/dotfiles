@@ -431,8 +431,8 @@ let g:ycm_key_list_stop_completion = [ '<C-y>', '<Enter>' ]
 nnoremap gd :YcmCompleter GoToDefinition<CR>
 nnoremap gD :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>z :YcmCompleter GoToReferences<cr> " requires jsconfig file
-nnoremap ,ac1 :let g:ycm_auto_trigger=1<CR>
-nnoremap ,ac0 :let g:ycm_auto_trigger=0<CR>
+nnoremap <leader>ac1 :let g:ycm_auto_trigger=1<CR>
+nnoremap <leader>ac0 :let g:ycm_auto_trigger=0<CR>
 
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
