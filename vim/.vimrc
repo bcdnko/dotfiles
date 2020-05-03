@@ -167,8 +167,8 @@ nnoremap <C-s> :wa<cr>
 " Navigation
 " nnoremap j gj
 " nnoremap k gk
-nnoremap <tab> %
-vnoremap <tab> %
+" nnoremap <tab> % - removed because of <c-i>
+" vnoremap <tab> % - removed because of <c-i>
 
 " Tabs
 au TabLeave * let g:lasttab = tabpagenr()
