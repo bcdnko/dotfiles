@@ -5,10 +5,11 @@ set nocompatible
 filetype off
 
 if exists('cfg_all')
-  let cfg_ext=1
-  let cfg_dev=1
-  let cfg_web=1
-  let cfg_web_syn=1
+    let cfg_ext=1
+    let cfg_dev=1
+    let cfg_web=1
+    let cfg_web_syn=1
+    let cfg_python=1
 endif
 
 " set the runtime path to include Vundle and initialize
@@ -19,52 +20,58 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'godlygeek/csapprox'
 
 if exists('cfg_ext')
-  Plugin 'vim-airline/vim-airline'
-  Plugin 'vim-airline/vim-airline-themes'
-  
-  Plugin 'scrooloose/nerdtree'
-  Plugin 'editorconfig/editorconfig-vim'
-  
-  Plugin 'easymotion/vim-easymotion'
-  Plugin 'mileszs/ack.vim'
-  
-  "Plugin 'altercation/vim-colors-solarized'
-  "Plugin 'tpope/vim-surround.git'
-  "Plugin 'machakann/vim-sandwich'
-  "Plugin 'nathanaelkane/vim-indent-guides'
-  "Plugin 'sjl/gundo.vim'
-  "Plugin 'chrisbra/nrrwrgn'
+    Plugin 'vim-airline/vim-airline'
+    Plugin 'vim-airline/vim-airline-themes'
+
+    Plugin 'scrooloose/nerdtree'
+    Plugin 'editorconfig/editorconfig-vim'
+
+    Plugin 'easymotion/vim-easymotion'
+    Plugin 'mileszs/ack.vim'
+
+    "Plugin 'altercation/vim-colors-solarized'
+    "Plugin 'tpope/vim-surround.git'
+    "Plugin 'machakann/vim-sandwich'
+    "Plugin 'nathanaelkane/vim-indent-guides'
+    "Plugin 'sjl/gundo.vim'
+    "Plugin 'chrisbra/nrrwrgn'
 endif
 
 if exists('cfg_dev')
-  Plugin 'tpope/vim-fugitive'
-  Plugin 'airblade/vim-gitgutter'
+    Plugin 'tpope/vim-fugitive'
+    Plugin 'airblade/vim-gitgutter'
 
-  Plugin 'kien/ctrlp.vim'
-  Plugin 'valloric/youcompleteme'
+    Plugin 'kien/ctrlp.vim'
+    Plugin 'valloric/youcompleteme'
 
-  Plugin 'SirVer/ultisnips'
-  Plugin 'honza/vim-snippets'
+    Plugin 'SirVer/ultisnips'
+    Plugin 'honza/vim-snippets'
 
-  "Plugin 'scrooloose/nerdcommenter'
-  "Plugin 'majutsushi/tagbar'
+    "Plugin 'scrooloose/nerdcommenter'
+    "Plugin 'majutsushi/tagbar'
 endif
 
 if exists('cfg_web')
-  Plugin 'Shougo/vimproc.vim'
-  Plugin 'othree/html5.vim'
-  Plugin 'mattn/emmet-vim'
-  Plugin 'pangloss/vim-javascript'
-  Plugin 'herringtondarkholme/yats.vim'
-  Plugin 'quramy/tsuquyomi'
+    Plugin 'Shougo/vimproc.vim'
+    Plugin 'othree/html5.vim'
+    Plugin 'mattn/emmet-vim'
+    Plugin 'pangloss/vim-javascript'
+    Plugin 'herringtondarkholme/yats.vim'
+    Plugin 'quramy/tsuquyomi'
 
-  " replaced with ale (keeping for convenience)
-  " let g:syntastic_javascript_checkers = ['eslint']
-  " let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
+    " replaced with ale (keeping for convenience)
+    " let g:syntastic_javascript_checkers = ['eslint']
+    " let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
 
-  if exists('cfg_web_syn')
-    Plugin 'w0rp/ale'
-  endif
+    if exists('cfg_web_syn')
+        Plugin 'w0rp/ale'
+    endif
+
+    if exists('cfg_python')
+        Plugin 'vim-scripts/indentpython.vim'
+        Plugin 'view/vim-flake8'
+        let python_highlight_all=1
+    endif
 endif
 
 call vundle#end()
@@ -106,6 +113,7 @@ set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
 set t_Co=256 
 set background=dark
 colorscheme skythunder
+let macvim_skip_colorscheme=1
 
 set laststatus=2
 set wrap linebreak
@@ -132,10 +140,17 @@ set guioptions-=m "remove menu bar
 set guioptions-=T "remove toolbar
 set guioptions+=c "use console dialogs
 
+
+" INPUT
+set keymap=russian-jcukenwin
+set iminsert=0
+set imsearch=0
+highlight lCursor guifg=NONE guibg=Cyan
+
 if has("gui_running")
-  " GUI is running or is about to start.
-  " Maximize gvim window.
-  "set lines=999 columns=999
+    " GUI is running or is about to start.
+    " Maximize gvim window.
+    "set lines=999 columns=999
 endif
 nnoremap <leader> :nohl<cr><esc>
 
@@ -256,13 +271,16 @@ set matchtime=1
 
 " UTILITIES
 nnoremap <leader>gc gg/constructor<cr>zz 
-nnoremap <leader>json :%!python -m json.tool<cr>
+nnoremap <leader>json :%!jq<cr>
 
 " :Sw sudo write
 command Sw w !sudo tee % > /dev/null
 
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" prettify URL query string
+map <leader>url :%s/&/\r&/g<cr>
 
 """"""""""""""""""""
 " auto highlight word under the cursor
@@ -301,69 +319,69 @@ endfunction
 
 " CUSTOM CONFIGURATIONS
 if exists('cfg_dev')
-  " Automatically update files
-  set autoread
-  "set autowriteall
+    " Automatically update files
+    set autoread
+    "set autowriteall
 
-  " Open current file in WebStorm
-  nnoremap <C-M-e> :execute ":!/opt/webstorm/bin/webstorm.sh --line " . line('.') . " % " . " &"<cr>
+    " Open current file in WebStorm
+    nnoremap <C-M-e> :execute ":!/opt/webstorm/bin/webstorm.sh --line " . line('.') . " % " . " &"<cr>
 
-  set nofoldenable
+    set nofoldenable
 
-  " Save everything on focus lost TODO add to session
-  "au FocusLost * silent! wa
+    " Save everything on focus lost TODO add to session
+    "au FocusLost * silent! wa
 
-  " Auto cd to current file's directory
-  "autocmd BufEnter * lcd %:p:h
-  "set autochdir
+    " Auto cd to current file's directory
+    "autocmd BufEnter * lcd %:p:h
+    "set autochdir
 
-  " ctags on save
-  "nnoremap <C-s> :wa<cr>:!ctags -R .<cr><cr>
+    " ctags on save
+    "nnoremap <C-s> :wa<cr>:!ctags -R .<cr><cr>
 
-  " Reformat pasted
-  "nnoremap p p=`]
-  "nnoremap P P=`]
+    " Reformat pasted
+    "nnoremap p p=`]
+    "nnoremap P P=`]
 
-  " Utilities
-  " nnoremap <leader>nxtr yi'<cr>:!node ~/dev/translation.js <C-r>"<cr>
+    " Utilities
+    " nnoremap <leader>nxtr yi'<cr>:!node ~/dev/translation.js <C-r>"<cr>
 endif
 
 if exists('cfg_web')
-  " Ignore js dirs
-  set wildignore+=*/node_modules/**
-  set wildignore+=coverage
-  set wildignore+=coverage_js
-  set wildignore+=dist
-  
-  " Workaround for weback watch issue
-  set backupcopy=yes 
+    " Ignore js dirs
+    set wildignore+=*/node_modules/**
+    set wildignore+=coverage
+    set wildignore+=coverage_js
+    set wildignore+=dist
 
-  autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
-  autocmd BufNewFile,BufRead *.js setlocal filetype=typescript
-  
-  let g:tsuquyomi_single_quote_import=1
-  let g:tsuquyomi_disable_quickfix = 1
-  nnoremap <leader>im :TsuImport<cr>
-  
-  let g:typescript_indent_disable = 1
-  let g:syntastic_typescript_checkers = ['tslint', 'tsc']
-  let g:syntastic_aggregate_errors = 1
-  
-  let g:tagbar_type_typescript = {
-    \ 'ctagstype': 'typescript',
-    \ 'kinds': [
-      \ 'c:classes',
-      \ 'n:modules',
-      \ 'f:functions',
-      \ 'v:variables',
-      \ 'v:varlambdas',
-      \ 'm:members',
-      \ 'i:interfaces',
-      \ 'e:enums',
-    \ ]
-  \ }
-  
-  autocmd FileType javascript,typescript,json setlocal foldmethod=marker foldmarker={,} foldlevel=0
+    " Workaround for weback watch issue
+    set backupcopy=yes 
+
+    autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
+    autocmd BufNewFile,BufRead *.js setlocal filetype=typescript
+
+    let g:tsuquyomi_single_quote_import=1
+    let g:tsuquyomi_disable_quickfix = 1
+    nnoremap <leader>im :TsuImport<cr>
+
+    let g:typescript_indent_disable = 1
+    let g:syntastic_typescript_checkers = ['tslint', 'tsc']
+    let g:syntastic_aggregate_errors = 1
+
+    let g:tagbar_type_typescript = {
+        \ 'ctagstype': 'typescript',
+        \ 'kinds': [
+            \ 'c:classes',
+            \ 'n:modules',
+            \ 'f:functions',
+            \ 'v:variables',
+            \ 'v:varlambdas',
+            \ 'm:members',
+            \ 'i:interfaces',
+            \ 'e:enums',
+        \ ]
+    \ }
+
+    autocmd FileType javascript,typescript,json setlocal foldmethod=marker foldmarker={,} foldlevel=0
 endif
 
 
@@ -390,16 +408,16 @@ nmap <leader>nf :NERDTreeFind<cr>
 """"""""""""""""""""
 " the_silver_searcher
 if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor\ --hidden
+    " Use ag over grep
+    set grepprg=ag\ --nogroup\ --nocolor\ --hidden
 
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+    let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
+    " ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching = 0
 
-  let g:ackprg = 'ag --nogroup --nocolor --column'
+    let g:ackprg = 'ag --nogroup --nocolor --column'
 endif
 
 """"""""""""""""""""
@@ -418,10 +436,10 @@ map <leader>gst :Gst<cr><c-w>J
 " Show syntax region name
 nmap <leader>sp :call <SID>SynStack()<CR>
 function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+    if !exists("*synstack")
+        return
+    endif
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
 """"""""""""""""""""
@@ -467,21 +485,21 @@ let g:ctrlp_show_hidden = 1
 " Ctags
 " https://github.com/romainl/ctags-patterns-for-javascript
 let g:tagbar_type_javascript = {
-  \ 'ctagstype': 'javascript',
-  \ 'kinds': [
-    \ 'A:Arrays',
-    \ 'C:Classes',
-    \ 'E:Exports',
-    \ 'F:Functions',
-    \ 'G:Generators',
-    \ 'I:Imports',
-    \ 'M:Methods',
-    \ 'P:Properties',
-    \ 'O:Objects',
-    \ 'S:StyledComponents',
-    \ 'T:Tags',
-    \ 'V:Variables',
-  \ ]
+    \ 'ctagstype': 'javascript',
+    \ 'kinds': [
+        \ 'A:Arrays',
+        \ 'C:Classes',
+        \ 'E:Exports',
+        \ 'F:Functions',
+        \ 'G:Generators',
+        \ 'I:Imports',
+        \ 'M:Methods',
+        \ 'P:Properties',
+        \ 'O:Objects',
+        \ 'S:StyledComponents',
+        \ 'T:Tags',
+        \ 'V:Variables',
+    \ ]
 \ }
 
 """"""""""""""""""""
@@ -495,3 +513,22 @@ let g:NERDCommentEmptyLines = 1
 if has('python3')
     let g:gundo_prefer_python3 = 1
 endif
+
+
+""""""""""""""""""""
+" File Types
+""""""""""""""""""""
+au BufNewFile,BufRead *.py
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+    \ set textwidth=79
+    \ set expandtab
+    \ set autoindent
+    \ set fileformat=unix
+
+au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+

@@ -1,5 +1,6 @@
 source ~/.vimrc
 nnoremap <leader>bd :action CloseEditor<cr>
 nnoremap <leader>bb :action NextTab<cr>
+nnoremap <leader>bn :action NextTab<cr>
 nnoremap <leader>bp :action PreviousTab<cr>
 nnoremap <leader>nf :action SelectIn<cr>
