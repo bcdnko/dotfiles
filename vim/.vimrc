@@ -36,8 +36,10 @@ if exists('cfg_dev')
     Plug 'tpope/vim-fugitive'
     Plug 'airblade/vim-gitgutter'
 
-    Plug 'kien/ctrlp.vim'
+    "Plug 'kien/ctrlp.vim'
     Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim'
 
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
@@ -473,7 +475,11 @@ let g:UltiSnipsListSnippets="<c-l>"
 
 """"""""""""""""""""
 " CtrlP
-let g:ctrlp_show_hidden = 1
+"let g:ctrlp_show_hidden = 1
+
+""""""""""""""""""""
+" Fuzzy Finder
+nmap <C-p> :Files<cr>
 
 """"""""""""""""""""
 " Ctags
