@@ -218,6 +218,10 @@ nnoremap <leader>f :find
 nnoremap <leader>s :wa<cr>
 nnoremap <leader>gr :grep -RF '<c-r>"' ./src/
 
+" Visual mode pressing * or # searches for the current selection
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+
 " Registers
 nnoremap <leader>ri :let @"=@+<cr>
 nnoremap <leader>re :let @+=@"<cr>
@@ -417,10 +421,6 @@ endif
 """"""""""""""""""""
 " GitGutter
 let g:gitgutter_diff_base = 'HEAD'
-
-" Visual mode pressing * or # searches for the current selection
-vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
 """"""""""""""""""""
 " Fugitive
