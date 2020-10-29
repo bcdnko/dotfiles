@@ -1,9 +1,6 @@
 " Turn off vi compatibility
 set nocompatible
 
-" Vundle
-filetype off
-
 if exists('cfg_all')
     let cfg_ext=1
     let cfg_dev=1
@@ -12,70 +9,67 @@ if exists('cfg_all')
     let cfg_python=1
 endif
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'godlygeek/csapprox'
+Plug 'VundleVim/Vundle.vim'
+Plug 'godlygeek/csapprox'
 
 if exists('cfg_ext')
-    Plugin 'vim-airline/vim-airline'
-    Plugin 'vim-airline/vim-airline-themes'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
 
-    Plugin 'scrooloose/nerdtree'
-    Plugin 'editorconfig/editorconfig-vim'
+    Plug 'scrooloose/nerdtree'
+    Plug 'editorconfig/editorconfig-vim'
 
-    Plugin 'easymotion/vim-easymotion'
-    Plugin 'mileszs/ack.vim'
+    Plug 'easymotion/vim-easymotion'
+    Plug 'mileszs/ack.vim'
 
-    "Plugin 'altercation/vim-colors-solarized'
-    "Plugin 'tpope/vim-surround.git'
-    "Plugin 'machakann/vim-sandwich'
-    "Plugin 'nathanaelkane/vim-indent-guides'
-    "Plugin 'sjl/gundo.vim'
-    "Plugin 'chrisbra/nrrwrgn'
+    "Plug 'altercation/vim-colors-solarized'
+    "Plug 'tpope/vim-surround.git'
+    "Plug 'machakann/vim-sandwich'
+    "Plug 'nathanaelkane/vim-indent-guides'
+    "Plug 'sjl/gundo.vim'
+    "Plug 'chrisbra/nrrwrgn'
 endif
 
 if exists('cfg_dev')
-    Plugin 'tpope/vim-fugitive'
-    Plugin 'airblade/vim-gitgutter'
+    Plug 'tpope/vim-fugitive'
+    Plug 'airblade/vim-gitgutter'
 
-    Plugin 'kien/ctrlp.vim'
-    Plugin 'valloric/youcompleteme'
+    Plug 'kien/ctrlp.vim'
+    Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
 
-    Plugin 'SirVer/ultisnips'
-    Plugin 'honza/vim-snippets'
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
 
-    "Plugin 'scrooloose/nerdcommenter'
-    "Plugin 'majutsushi/tagbar'
+    "Plug 'scrooloose/nerdcommenter'
+    "Plug 'majutsushi/tagbar'
 endif
 
 if exists('cfg_web')
-    Plugin 'Shougo/vimproc.vim'
-    Plugin 'othree/html5.vim'
-    Plugin 'mattn/emmet-vim'
-    Plugin 'pangloss/vim-javascript'
-    Plugin 'herringtondarkholme/yats.vim'
-    Plugin 'quramy/tsuquyomi'
+    Plug 'Shougo/vimproc.vim'
+    Plug 'othree/html5.vim'
+    Plug 'mattn/emmet-vim'
+    Plug 'pangloss/vim-javascript'
+    Plug 'herringtondarkholme/yats.vim'
+    "Plug 'quramy/tsuquyomi'
 
     " replaced with ale (keeping for convenience)
     " let g:syntastic_javascript_checkers = ['eslint']
     " let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
 
     if exists('cfg_web_syn')
-        Plugin 'w0rp/ale'
+        Plug 'w0rp/ale'
     endif
 
     if exists('cfg_python')
-        Plugin 'vim-scripts/indentpython.vim'
-        Plugin 'view/vim-flake8'
+        Plug 'vim-scripts/indentpython.vim'
+        Plug 'view/vim-flake8'
         let python_highlight_all=1
     endif
 endif
 
-call vundle#end()
-filetype plugin indent on
+call plug#end()
 
 """"""""""""""""""""
 " SYSTEM
