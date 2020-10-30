@@ -34,7 +34,6 @@ endif
 
 if exists('cfg_dev')
     Plug 'tpope/vim-fugitive'
-    Plug 'airblade/vim-gitgutter'
 
     "Plug 'kien/ctrlp.vim'
     Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
@@ -43,6 +42,7 @@ if exists('cfg_dev')
 
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
+    Plug 'airblade/vim-gitgutter'
 
     "Plug 'scrooloose/nerdcommenter'
     "Plug 'majutsushi/tagbar'
@@ -113,6 +113,10 @@ let macvim_skip_colorscheme=1
 
 set laststatus=2
 set wrap linebreak
+if exists('cfg_dev')
+    set nowrap
+endif
+
 set cursorline
 set colorcolumn=90
 
