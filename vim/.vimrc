@@ -531,5 +531,5 @@ au BufNewFile,BufRead *.py
     \ set autoindent
     \ set fileformat=unix
 
-au FileType javascript,html,css
+au FileType typescript,typescriptreact,javascript,html,css
     \ setlocal tabstop=2 shiftwidth=2 expandtab softtabstop=2
