@@ -1,3 +1,5 @@
+set -o vi
+
 # VIM
 alias gvi='vi -g'
 
@@ -35,7 +37,8 @@ fi
 alias gs='git status'
 alias gp='git pull'
 alias gpo='git push origin'
-alias gc='git checkout'
+alias gch='git checkout'
+alias gcm='git commit'
 alias gcn='git checkout -b'
 alias gbl='git branch -l'
 alias gbr='git branch -r'
