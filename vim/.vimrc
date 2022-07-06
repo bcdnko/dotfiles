@@ -362,6 +362,7 @@ if exists('cfg_web')
 
     autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
     autocmd BufNewFile,BufRead *.js setlocal filetype=typescript
+    autocmd BufNewFile,BufRead *.jsx setlocal filetype=typescript
 
     let g:tsuquyomi_single_quote_import=1
     let g:tsuquyomi_disable_quickfix = 1
