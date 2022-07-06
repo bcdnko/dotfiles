@@ -250,6 +250,8 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 noremap <leader>_ <C-w>s<C-w>J<C-w>15_
+noremap <leader><tab> <C-^>
+noremap <leader>w <C-w>
 
 " Command line
 cnoremap <c-p> <up>
@@ -407,8 +409,8 @@ let g:NERDTreeShowHidden=1
 let g:NERDTreeMapJumpNextSibling = '<Nop>'
 let g:NERDTreeMapJumpPrevSibling = '<Nop>'
 
-nmap <leader>nt :NERDTreeToggle<cr>
-nmap <leader>nf :NERDTreeFind<cr>
+nmap <leader>ft :NERDTreeToggle<cr>
+nmap <leader>pt :NERDTreeFind<cr>
 
 """"""""""""""""""""
 " the_silver_searcher
