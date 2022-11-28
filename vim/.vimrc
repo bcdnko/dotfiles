@@ -36,7 +36,7 @@ if exists('cfg_dev')
     Plug 'tpope/vim-fugitive'
 
     "Plug 'kien/ctrlp.vim'
-    Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
+    "Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
 
@@ -49,20 +49,18 @@ if exists('cfg_dev')
 endif
 
 if exists('cfg_web')
-    Plug 'Shougo/vimproc.vim'
-    Plug 'othree/html5.vim'
-    Plug 'mattn/emmet-vim'
     Plug 'pangloss/vim-javascript'
-    Plug 'herringtondarkholme/yats.vim'
-    "Plug 'quramy/tsuquyomi'
+    Plug 'leafgarland/typescript-vim'
+    Plug 'peitalin/vim-jsx-typescript'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    "Plug 'Shougo/vimproc.vim'
+    "Plug 'othree/html5.vim'
+    "Plug 'mattn/emmet-vim'
+    "Plug 'herringtondarkholme/yats.vim'
 
-    " replaced with ale (keeping for convenience)
-    " let g:syntastic_javascript_checkers = ['eslint']
-    " let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
-
-    if exists('cfg_web_syn')
-        Plug 'w0rp/ale'
-    endif
+    let g:coc_global_extensions = [
+        \ 'coc-tsserver'
+        \ ]
 
     if exists('cfg_python')
         Plug 'vim-scripts/indentpython.vim'
@@ -86,6 +84,7 @@ set modelines=0
 
 " Spellcheck
 set spell spelllang=en_us
+set spelloptions+=camel
 
 " Remember buffers
 "exec 'set viminfo=%,' . &viminfo
@@ -104,11 +103,11 @@ set undolevels=2000
 set noundofile
 
 " APPEARANCE 
+set background=dark
+colorscheme skythunder
 syntax on 
 set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
 set t_Co=256 
-set background=dark
-colorscheme skythunder
 let macvim_skip_colorscheme=1
 
 set laststatus=2
@@ -152,7 +151,7 @@ if has("gui_running")
     " Maximize gvim window.
     "set lines=999 columns=999
 endif
-nnoremap <leader> :nohl<cr><esc>
+nnoremap <leader><esc> :nohl<cr><esc>
 
 set mousehide
 set mousemodel=popup
@@ -220,7 +219,7 @@ nnoremap <leader>bl :ls<cr>
 nnoremap <leader>bo :%bd\|e#<cr>
 
 " Search
-nnoremap <leader>f :find 
+"nnoremap <leader>f :find 
 nnoremap <leader>s :wa<cr>
 nnoremap <leader>gr :grep -RF '<c-r>"' ./src/
 
@@ -231,7 +230,7 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 " Registers
 nnoremap <leader>ri :let @"=@+<cr>
 nnoremap <leader>re :let @+=@"<cr>
-nnoremap <leader>cp :let @" = expand("%")<cr>
+nnoremap <leader>fy :let @" = expand("%")<cr>
 
 nnoremap <leader>y "+y
 nnoremap <leader>Y "+Y
@@ -362,17 +361,19 @@ if exists('cfg_web')
     " Workaround for weback watch issue
     set backupcopy=yes 
 
-    autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
-    autocmd BufNewFile,BufRead *.js setlocal filetype=typescript
-    autocmd BufNewFile,BufRead *.jsx setlocal filetype=typescript
+    "autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
+    "autocmd BufNewFile,BufRead *.js setlocal filetype=typescript
+    "autocmd BufNewFile,BufRead *.jsx setlocal filetype=typescriptreact
+    "autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescriptreact
+    "autocmd FileType javascript,typescript,json setlocal foldmethod=marker foldmarker={,} foldlevel=0
 
-    let g:tsuquyomi_single_quote_import=1
-    let g:tsuquyomi_disable_quickfix = 1
-    nnoremap <leader>im :TsuImport<cr>
+    " let g:tsuquyomi_single_quote_import=1
+    " let g:tsuquyomi_disable_quickfix = 1
+    " nnoremap <leader>im :TsuImport<cr>
 
-    let g:typescript_indent_disable = 1
-    let g:syntastic_typescript_checkers = ['tslint', 'tsc']
-    let g:syntastic_aggregate_errors = 1
+    " let g:typescript_indent_disable = 1
+    " let g:syntastic_typescript_checkers = ['tslint', 'tsc']
+    " let g:syntastic_aggregate_errors = 1
 
     let g:tagbar_type_typescript = {
         \ 'ctagstype': 'typescript',
@@ -388,7 +389,16 @@ if exists('cfg_web')
         \ ]
     \ }
 
-    autocmd FileType javascript,typescript,json setlocal foldmethod=marker foldmarker={,} foldlevel=0
+    nmap gd <Plug>(coc-definition)
+    nmap gD <Plug>(coc-type-definition)
+    nnoremap <leader>gd <Plug>(coc-definition)
+    nnoremap <leader>gD <Plug>(coc-type-definition)
+    nnoremap <leader>mgr <Plug>(coc-references)
+    nnoremap <leader>ma <Plug>(coc-codeaction) " import under cursor
+    nmap <leader>mrr <Plug>(coc-rename)
+    nnoremap <leader>mh :call CocAction('doHover')<CR>
+    nmap <leader>ep <Plug>(coc-diagnostic-prev)
+    nmap <leader>en <Plug>(coc-diagnostic-next)
 endif
 
 
@@ -447,19 +457,18 @@ endfunc
 
 """"""""""""""""""""
 " YouCompleteMe
-let g:ycm_key_list_stop_completion = [ '<C-y>', '<Enter>' ]
-
-nnoremap gd :YcmCompleter GoToDefinition<CR>
-nnoremap gD :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>z :YcmCompleter GoToReferences<cr> " requires jsconfig file
-nnoremap <leader>ac1 :let g:ycm_auto_trigger=1<CR>
-nnoremap <leader>ac0 :let g:ycm_auto_trigger=0<CR>
+"let g:ycm_key_list_stop_completion = [ '<C-y>', '<Enter>' ]
+"nnoremap gd :YcmCompleter GoToDefinition<CR>
+"nnoremap gD :YcmCompleter GoToDeclaration<CR>
+"nnoremap <leader>z :YcmCompleter GoToReferences<cr> " requires jsconfig file
+"nnoremap <leader>ac1 :let g:ycm_auto_trigger=1<CR>
+"nnoremap <leader>ac0 :let g:ycm_auto_trigger=0<CR>
 
 " make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-let g:ycm_autoclose_preview_window_after_completion=1
+"let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+"let g:SuperTabDefaultCompletionType = '<C-n>'
+"let g:ycm_autoclose_preview_window_after_completion=1
 
 """"""""""""""""""""
 " UltiSnips
