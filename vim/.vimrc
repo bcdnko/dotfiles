@@ -35,8 +35,6 @@ endif
 if exists('cfg_dev')
     Plug 'tpope/vim-fugitive'
 
-    "Plug 'kien/ctrlp.vim'
-    "Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
 
@@ -44,6 +42,8 @@ if exists('cfg_dev')
     Plug 'honza/vim-snippets'
     Plug 'airblade/vim-gitgutter'
 
+    "Plug 'kien/ctrlp.vim'
+    "Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
     "Plug 'scrooloose/nerdcommenter'
     "Plug 'majutsushi/tagbar'
 endif
@@ -53,13 +53,17 @@ if exists('cfg_web')
     Plug 'leafgarland/typescript-vim'
     Plug 'peitalin/vim-jsx-typescript'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
     "Plug 'Shougo/vimproc.vim'
     "Plug 'othree/html5.vim'
     "Plug 'mattn/emmet-vim'
     "Plug 'herringtondarkholme/yats.vim'
 
     let g:coc_global_extensions = [
-        \ 'coc-tsserver'
+        \ 'coc-tsserver',
+        \ 'coc-json',
+        \ 'coc-css',
+        \ 'coc-html'
         \ ]
 
     if exists('cfg_python')
@@ -105,6 +109,7 @@ set noundofile
 " APPEARANCE 
 set background=dark
 colorscheme skythunder
+autocmd vimenter * ++nested colorscheme skythunder
 syntax on 
 set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
 set t_Co=256 
@@ -274,6 +279,10 @@ set matchtime=1
 "nnoremap <leader><space> :noh<cr>
 
 
+" FILES
+nnoremap <leader>fed :e ~/dotfiles/vim/.vimrc<cr>
+
+
 " UTILITIES
 nnoremap <leader>gc gg/constructor<cr>zz 
 nnoremap <leader>json :%!jq<cr>
@@ -414,6 +423,10 @@ let g:airline_theme='dark'
 
 """"""""""""""""""""
 " NERDTree
+if exists('cfg_dev')
+    au VimEnter *  NERDTree
+endif
+
 let g:NERDTreeWinSize=60
 let g:NERDTreeShowHidden=1
 let g:NERDTreeMapJumpNextSibling = '<Nop>'
