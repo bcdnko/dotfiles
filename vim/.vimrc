@@ -41,6 +41,7 @@ if exists('cfg_dev')
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
     Plug 'airblade/vim-gitgutter'
+    Plug 'sheerun/vim-polyglot'
 
     "Plug 'kien/ctrlp.vim'
     "Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
@@ -49,9 +50,9 @@ if exists('cfg_dev')
 endif
 
 if exists('cfg_web')
-    Plug 'pangloss/vim-javascript'
-    Plug 'leafgarland/typescript-vim'
-    Plug 'peitalin/vim-jsx-typescript'
+    "Plug 'pangloss/vim-javascript'
+    "Plug 'leafgarland/typescript-vim'
+    "Plug 'peitalin/vim-jsx-typescript'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
     "Plug 'Shougo/vimproc.vim'
@@ -63,7 +64,8 @@ if exists('cfg_web')
         \ 'coc-tsserver',
         \ 'coc-json',
         \ 'coc-css',
-        \ 'coc-html'
+        \ 'coc-html',
+        \ 'coc-prettier',
         \ ]
 
     if exists('cfg_python')
@@ -226,7 +228,7 @@ nnoremap <leader>bo :%bd\|e#<cr>
 " Search
 "nnoremap <leader>f :find 
 nnoremap <leader>s :wa<cr>
-nnoremap <leader>gr :grep -RF '<c-r>"' ./src/
+nnoremap <leader>/ :grep -RF '<c-r>"' ./src/
 
 " Visual mode pressing * or # searches for the current selection
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
@@ -293,7 +295,7 @@ command Sw w !sudo tee % > /dev/null
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" prettify URL query string
+" split URL query string
 map <leader>url :%s/&/\r&/g<cr>
 
 """"""""""""""""""""
@@ -432,8 +434,8 @@ let g:NERDTreeShowHidden=1
 let g:NERDTreeMapJumpNextSibling = '<Nop>'
 let g:NERDTreeMapJumpPrevSibling = '<Nop>'
 
-nmap <leader>ft :NERDTreeToggle<cr>
-nmap <leader>pt :NERDTreeFind<cr>
+nnoremap <leader>ft :NERDTreeToggle<cr>
+nnoremap <leader>pt :NERDTreeFind<cr>
 
 """"""""""""""""""""
 " the_silver_searcher
