@@ -20,7 +20,12 @@ alias gvimall='vi --cmd "let cfg_all=1" -g'
 alias godl='cd ~/Downloads/'
 alias godocs='cd ~/Documents/'
 alias godev='cd ~/dev/'
+alias godot='cd ~/dotfiles/'
 
+
+# DOTFILES
+alias ebashrc='vim ~/.bashrc'
+alias ezshrc='vim ~/.zshrc'
 
 # GIT
 # setup autocompletion
@@ -39,9 +44,15 @@ alias gp='git pull'
 alias gpo='git push origin'
 alias gch='git checkout'
 alias gcm='git commit'
-alias gcn='git checkout -b'
+alias gchn='git checkout -b'
 alias gbl='git branch -l'
 alias gbr='git branch -r'
+alias gdd='git diff'
+alias gdc='git diff --cached'
+alias gdt='git difftool'
+alias gdtc='git difftool --cached'
+alias g-='git checkout -'
+alias ga='git add -A && gs'
 
 cdroot () {
 	TEMP_PWD=`pwd`

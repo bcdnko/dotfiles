@@ -43,7 +43,7 @@ if exists('cfg_dev')
     Plug 'airblade/vim-gitgutter'
     Plug 'sheerun/vim-polyglot'
 
-    "Plug 'kien/ctrlp.vim'
+    Plug 'kien/ctrlp.vim'
     "Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
     "Plug 'scrooloose/nerdcommenter'
     "Plug 'majutsushi/tagbar'
@@ -113,7 +113,13 @@ set background=dark
 colorscheme skythunder
 autocmd vimenter * ++nested colorscheme skythunder
 syntax on 
-set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
+
+if has('mac')
+    set guifont=Ubuntu\ Mono\ derivative\ Powerline\:h16
+else 
+    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 12
+endif
+
 set t_Co=256 
 let macvim_skip_colorscheme=1
 
@@ -339,9 +345,6 @@ if exists('cfg_dev')
     set autoread
     "set autowriteall
 
-    " Open current file in WebStorm
-    nnoremap <C-M-e> :execute ":!/opt/webstorm/bin/webstorm.sh --line " . line('.') . " % " . " &"<cr>
-
     set nofoldenable
 
     " Save everything on focus lost TODO add to session
@@ -363,6 +366,9 @@ if exists('cfg_dev')
 endif
 
 if exists('cfg_web')
+    " Open current file in WebStorm
+    nnoremap <leader>fei :execute ":!/usr/local/bin/webstorm --line " . line('.') . " % " . " &"<cr>
+
     " Ignore js dirs
     set wildignore+=*/node_modules/**
     set wildignore+=coverage
@@ -441,15 +447,15 @@ nnoremap <leader>pt :NERDTreeFind<cr>
 " the_silver_searcher
 if executable('ag')
     " Use ag over grep
-    set grepprg=ag\ --nogroup\ --nocolor\ --hidden
+    "set grepprg=ag\ --nogroup\ --nocolor\ --hidden
 
     " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-    let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+    let g:ctrlp_user_command = 'ag %s -U --smart-case --nocolor --nogroup --hidden --path-to-ignore ~/.ignore -g ""'
 
     " ag is fast enough that CtrlP doesn't need to cache
     let g:ctrlp_use_caching = 0
 
-    let g:ackprg = 'ag --nogroup --nocolor --column'
+    "let g:ackprg = 'ag --nogroup --nocolor --column'
 endif
 
 """"""""""""""""""""
@@ -506,11 +512,18 @@ let g:UltiSnipsListSnippets="<c-l>"
 
 """"""""""""""""""""
 " CtrlP
-"let g:ctrlp_show_hidden = 1
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_mruf_relative = 1
+let g:ctrlp_match_current_file = 1
 
 """"""""""""""""""""
-" Fuzzy Finder
-nmap <C-p> :Files<cr>
+" Fuzzy Finder fzf
+" nmap <C-p> :Files<cr>
+nmap <leader>ff :Files<cr>
+command! -bang -nargs=* Aga call fzf#vim#ag(<q-args>, '-U --smart-case --hidden --path-to-ignore ~/.ignore', <bang>0)
+let $FZF_DEFAULT_COMMAND = 'ag -U --smart-case --hidden --path-to-ignore ~/.ignore -l -g ""'
 
 """"""""""""""""""""
 " Ctags
