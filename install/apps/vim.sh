@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo "Installing vim"
+./install/dotfiles/vim.sh
+
+sudo apt install vim
+
 mkdir ~/.vim/tmp
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \

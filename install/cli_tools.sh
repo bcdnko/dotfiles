@@ -1,3 +1,13 @@
 #!/bin/bash
 
-sudo apt get install silversearcher-ag jq
+echo "Installing cli tools"
+
+sudo apt install \
+    git \
+    tig \
+    fzf \
+    silversearcher-ag \
+    ripgrep \
+    jq
+    # lazygit
+

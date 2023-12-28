@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Installing bash aliases"
+
 if grep -q '#dotfiles-section' ~/.bashrc
 then
     echo "No need to update .bashrc"

@@ -15,6 +15,8 @@ alias gvimweb='vi --cmd "let cfg_ext=1" --cmd "let cfg_dev=1" --cmd "let cfg_web
 alias vimall='vi --cmd "let cfg_all=1"'
 alias gvimall='vi --cmd "let cfg_all=1" -g'
 
+alias nvimdiff='nvim -d'
+
 
 # GO ALIASES
 alias godl='cd ~/Downloads/'
@@ -24,8 +26,8 @@ alias godot='cd ~/dotfiles/'
 
 
 # DOTFILES
-alias ebashrc='vim ~/.bashrc'
-alias ezshrc='vim ~/.zshrc'
+alias ebashrc='vim ~/.bashrc && source ~/.bashrc'
+alias ezshrc='vim ~/.zshrc && source ~/.zshrc'
 
 # GIT
 # setup autocompletion
@@ -34,7 +36,7 @@ if [ -f "/usr/share/bash-completion/completions/git" ]; then
   __git_complete gp _git_pull
   __git_complete gpo _git_push
   __git_complete gc _git_checkout
-  __git_complete gcn _git_checkout
+  __git_complete gch _git_checkout
 else
   echo "Error loading git completions"
 fi
@@ -62,7 +64,7 @@ cdroot () {
 	OLDPWD=$TEMP_PWD
 }
 
-gchck () {
+gchk () {
 	git checkout $1
 	git pull
 }
