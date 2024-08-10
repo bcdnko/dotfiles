@@ -19,8 +19,6 @@ return {
         wrap = false, -- sets vim.opt.wrap
 
         keymap = "russian-jcukenwin",
-        iminsert = 0,
-        imsearch = 0,
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
