@@ -36,7 +36,17 @@ return {
     end,
   },
 
-  -- {
-  --   "nvim-neo-tree/neo-tree.nvim",
-  -- },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = function(_, opts)
+      opts.window.width = 45
+
+      opts.filesystem.filtered_items.visible = true
+    end,
+  },
+
+  {
+    "lewis6991/gitsigns.nvim",
+    opts = function(_, opts) opts.base = "HEAD" end,
+  },
 }
